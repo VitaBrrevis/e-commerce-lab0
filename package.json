@@ -1,0 +1,22 @@
+{
+  "name": "lab0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "migrate:up": "node --import dotenv/config ./node_modules/node-pg-migrate/bin/node-pg-migrate.js up -t schema_migrations",
+    "migrate:down": "node --import dotenv/config ./node_modules/node-pg-migrate/bin/node-pg-migrate.js down -t schema_migrations",
+    "migrate:create": "node --import dotenv/config ./node_modules/node-pg-migrate/bin/node-pg-migrate.js create",
+    "start": "node index.js",
+    "test": "node --test ./test/**/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2",
+    "node-pg-migrate": "^8.0.4",
+    "pg": "^8.11.5",
+    "pino": "^9.3.2"
+  }
+}

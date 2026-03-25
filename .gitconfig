@@ -1,0 +1,7 @@
+[user]
+	name = VitaBrrevis
+	email = vitalina.doronina@digitalsuits.co
+[gc]
+	autoDetach = false
+[core]
+	editor = vim
