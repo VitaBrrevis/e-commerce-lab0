@@ -3,8 +3,8 @@ name: CI/CD — build, push, scan
 on:
   push:
     branches-ignore:
-      # KinD / Lab 3 branch: validate only with lab3.yml (no GHCR push, no lab2 script)
-      - lab3-kubernetes-deployment
+      # Lab 3 branch: KinD + k8s only via lab3.yml
+      - Laba3
 
 permissions:
   contents: read

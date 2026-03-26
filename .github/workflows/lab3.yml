@@ -3,11 +3,10 @@ name: Lab 3 — Kubernetes
 on:
   push:
     branches:
-      - main
-      - master
-      - lab3-kubernetes-deployment
+      - Laba3
   pull_request:
-    branches: [main, master]
+    branches:
+      - Laba3
 
 jobs:
   kubernetes-lab3:

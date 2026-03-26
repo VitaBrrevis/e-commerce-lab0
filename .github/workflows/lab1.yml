@@ -3,7 +3,7 @@ name: Lab 1 Grading
 on:
   push:
     branches-ignore:
-      - lab3-kubernetes-deployment
+      - Laba3
 
 jobs:
   validate:
