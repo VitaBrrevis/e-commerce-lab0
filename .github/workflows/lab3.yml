@@ -1,0 +1,33 @@
+name: Lab 3 — Kubernetes
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - lab3-kubernetes-deployment
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  kubernetes-lab3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create KinD cluster
+        uses: helm/kind-action@v1
+        with:
+          cluster_name: lab3
+
+      - name: Build app image and load into KinD
+        run: |
+          docker build -t ecommerce-app:lab3 .
+          kind load docker-image ecommerce-app:lab3 --name lab3
+
+      - name: Apply Kubernetes manifests
+        run: kubectl apply -f k8s/
+
+      - name: Master validation script
+        run: bash tests/lab3_test.sh
