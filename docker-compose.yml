@@ -7,9 +7,41 @@ services:
       POSTGRES_PASSWORD: ${DB_PASS:-postgres}
       POSTGRES_DB: ${DB_NAME:-appdb}
     ports:
-      - "${DB_PORT:-5432}:5432"
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"',
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_PORT: ${APP_PORT:-8080}
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:${APP_PORT:-8080}"
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASS: ${DB_PASS:-postgres}
+      DB_NAME: ${DB_NAME:-appdb}
+      DB_SSL: "false"
+      APP_PORT: ${APP_PORT:-8080}
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   pgdata:
