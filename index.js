@@ -29,6 +29,9 @@ const logger = pino({
 
 // --- DB pool ---
 const pool = new Pool(poolConfig);
+pool.on('error', (err) => {
+  logger.warn({ message: 'Pool client error', error: err.message });
+});
 
 // --- Wait for DB ---
 async function waitForDb(retries = 15, delayMs = 2000) {
