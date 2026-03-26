@@ -2,8 +2,11 @@ name: Lab 1 Grading
 
 on:
   push:
-    branches-ignore:
-      - Laba3
+    branches:
+      - Laba1
+  pull_request:
+    branches:
+      - Laba1
 
 jobs:
   validate:

@@ -2,11 +2,11 @@ name: Lab 4 — Helm Charts & Templating
 
 on:
   push:
-    branches-ignore:
-      - Laba3
+    branches:
+      - Laba4
   pull_request:
-    branches-ignore:
-      - Laba3
+    branches:
+      - Laba4
 
 jobs:
   helm-lab4:

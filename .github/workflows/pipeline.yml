@@ -2,9 +2,11 @@ name: CI/CD — build, push, scan
 
 on:
   push:
-    branches-ignore:
-      # Lab 3 branch: KinD + k8s only via lab3.yml
-      - Laba3
+    branches:
+      - Laba2 # Lab 3 branch: KinD + k8s only via lab3.yml
+  pull_request:
+    branches:
+      - Laba2
 
 permissions:
   contents: read
