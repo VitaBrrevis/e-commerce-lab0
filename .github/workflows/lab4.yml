@@ -1,0 +1,31 @@
+name: Lab 4 — Helm Charts & Templating
+
+on:
+  push:
+    branches-ignore:
+      - Laba3
+  pull_request:
+    branches-ignore:
+      - Laba3
+
+jobs:
+  helm-lab4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.14.4
+
+      - name: Create KinD cluster
+        uses: helm/kind-action@v1
+        with:
+          cluster_name: lab4
+
+      - name: Run Lab 4 grading script
+        run: |
+          chmod +x ./tests/lab4_test.sh
+          ./tests/lab4_test.sh
