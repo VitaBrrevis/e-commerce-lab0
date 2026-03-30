@@ -1,11 +1,8 @@
 .PHONY: up down
 
 up:
-	docker compose up -d db
-	npm install --omit=dev
 	test -f .env || cp .env.example .env
-	npm run start
+	docker compose up -d --build
 
 down:
 	docker compose down
-
