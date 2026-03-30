@@ -1,0 +1,43 @@
+name: Lab 1 Grading
+
+on:
+  push:
+    branches-ignore:
+      - Laba3
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Tools
+        run: sudo apt-get update && sudo apt-get install -y jq curl
+
+      - name: Prepare environment
+        run: cp .env.example .env
+
+      - name: Build and Start
+        run: docker compose up -d --build
+
+      - name: Wait for Readiness
+        run: |
+          set -a
+          . ./.env
+          set +a
+          for i in {1..20}; do
+            if curl -sf "localhost:${APP_PORT}/health" > /dev/null; then
+              echo "App is ready!"
+              exit 0
+            fi
+            echo "Waiting... ($i/20)"
+            sleep 4
+          done
+          echo "App did not become ready in time"
+          exit 1
+
+      - name: Run Grading Script
+        run: |
+          chmod +x ./tests/lab1_test.sh
+          ./tests/lab1_test.sh
