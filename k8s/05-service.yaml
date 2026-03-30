@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecommerce-app
+spec:
+  type: ClusterIP
+  selector:
+    app: ecommerce-app
+  ports:
+    - port: 3000
+      targetPort: 3000
